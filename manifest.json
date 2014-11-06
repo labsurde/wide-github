@@ -1,26 +1,38 @@
 {
   "manifest_version": 2,
 
-  "name": "Wide Github",
+  "name": "Wide Github and Enterprise Github",
   "description": "Change all github repository pages to be full width and dynamically sized.",
-  "version": "1.0.9",
+  "version": "1.0.0",
+
+  "page_action": {
+    "default_icon": {
+      "19": "images/icon19.png",
+      "38": "images/icon19.png"
+    },
+    "default_title": "Wide Github"
+  },
 
   "permissions": [
-    "tabs", "https://github.com/*"
+    "tabs"
   ],
-  "browser_action": {
-    "default_icon": "icon.png"
+
+  "background": {
+    "scripts": ["background.js"]
   },
+
   "content_scripts": [
     {
-      "matches": ["https://github.com/*"],
+      "matches": ["https://*/*"],
+      "include_globs": ["https://github.*/*"],
       "js": ["wide-github.user.js"]
-    }
-  ],
-  "licenses": [
-    {
-      "type": "MIT License",
-      "url": "http://opensource.org/licenses/mit-license.php"
-    }
+    },
+	{
+      "matches": ["https://*/*"],
+      "include_globs": ["https://github.*/*"],
+	  "js": ["onUpdated.js"],
+	  "run_at": "document_start",
+	  "all_frames": false
+	}
   ]
 }
